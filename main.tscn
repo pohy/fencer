@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxvmv11a2iusl"]
+
+[ext_resource type="Script" path="res://paint_canvas.gd" id="1_e2wu2"]
+[ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="2_dgr3k"]
+[ext_resource type="Texture2D" uid="uid://dd64mhb7d2npj" path="res://assets/brush_test.png" id="3_71aor"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_42p4h"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snixo"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_42p4h")
+
+[sub_resource type="BoxMesh" id="BoxMesh_u4mqr"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_snixo")
+size = Vector3(1, 1, 0.02)
+
+[node name="Main" type="Node3D"]
+
+[node name="PaintCanvas" type="MeshInstance3D" parent="." node_paths=PackedStringArray("brush_sprite")]
+mesh = SubResource("BoxMesh_u4mqr")
+script = ExtResource("1_e2wu2")
+brush_sprite = NodePath("../SubViewport/BrushSprite")
+
+[node name="Mouse" parent="PaintCanvas" instance=ExtResource("2_dgr3k")]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+render_target_clear_mode = 1
+render_target_update_mode = 4
+
+[node name="BrushSprite" type="Sprite2D" parent="SubViewport"]
+position = Vector2(40, 2.08165e-12)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_71aor")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.894864, -0.111098, 0.432291, -1.87806e-09, 0.968527, 0.24891, -0.446338, -0.22274, 0.8667, 0, 0.399472, 1.0243)

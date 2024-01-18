@@ -1,40 +1,75 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=10 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://paint_canvas.gd" id="1_e2wu2"]
+[ext_resource type="QuadMesh" uid="uid://dk8dtajoo8i1u" path="res://plank_quad_mesh.tres" id="1_gugbd"]
 [ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="2_dgr3k"]
 [ext_resource type="Texture2D" uid="uid://dd64mhb7d2npj" path="res://assets/brush_test.png" id="3_71aor"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_42p4h"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_jfem3"]
+viewport_path = NodePath("PaintCanvas/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snixo"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l6lq7"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_42p4h")
+albedo_texture = SubResource("ViewportTexture_jfem3")
+uv1_world_triplanar = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_u4mqr"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_snixo")
-size = Vector3(1, 1, 0.02)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvy51"]
+transparency = 1
+albedo_color = Color(0.741176, 0.290196, 0.596078, 0.792157)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2tmhj"]
+material = SubResource("StandardMaterial3D_rvy51")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dw831"]
+size = Vector3(0.32, 1.28, 0.02)
 
 [node name="Main" type="Node3D"]
 
-[node name="PaintCanvas" type="MeshInstance3D" parent="." node_paths=PackedStringArray("brush_sprite")]
-mesh = SubResource("BoxMesh_u4mqr")
+[node name="PaintCanvas" type="MeshInstance3D" parent="." node_paths=PackedStringArray("brush_sprite", "color_rect")]
+transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 0, 0.0543851, 0.0618922)
+material_override = SubResource("StandardMaterial3D_l6lq7")
+mesh = ExtResource("1_gugbd")
 script = ExtResource("1_e2wu2")
-brush_sprite = NodePath("../SubViewport/BrushSprite")
+brush_sprite = NodePath("SubViewport/BrushSprite")
+color_rect = NodePath("SubViewport/ColorRect")
 
 [node name="Mouse" parent="PaintCanvas" instance=ExtResource("2_dgr3k")]
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="PaintCanvas"]
 disable_3d = true
 transparent_bg = true
+size = Vector2i(128, 512)
 render_target_clear_mode = 1
-render_target_update_mode = 4
+render_target_update_mode = 1
 
-[node name="BrushSprite" type="Sprite2D" parent="SubViewport"]
-position = Vector2(40, 2.08165e-12)
-scale = Vector2(0.5, 0.5)
+[node name="ColorRect" type="ColorRect" parent="PaintCanvas/SubViewport"]
+visible = false
+offset_right = 128.0
+offset_bottom = 512.0
+color = Color(0.341176, 0.25098, 0.113725, 0.498039)
+
+[node name="TextureRect" type="TextureRect" parent="PaintCanvas/SubViewport"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BrushSprite" type="Sprite2D" parent="PaintCanvas/SubViewport"]
+position = Vector2(64, 256)
 texture = ExtResource("3_71aor")
+
+[node name="DebugSphere" type="MeshInstance3D" parent="PaintCanvas"]
+visible = false
+mesh = SubResource("SphereMesh_2tmhj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="PaintCanvas"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PaintCanvas/StaticBody3D"]
+shape = SubResource("BoxShape3D_dw831")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.894864, -0.111098, 0.432291, -1.87806e-09, 0.968527, 0.24891, -0.446338, -0.22274, 0.8667, 0, 0.399472, 1.0243)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.798846, -0.377636, 0.468227, 1.64197e-16, 0.778386, 0.627786, -0.601536, -0.501504, 0.62181, 0, 0, 0.853543)

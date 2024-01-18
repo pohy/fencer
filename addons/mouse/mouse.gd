@@ -21,6 +21,7 @@ var _last_pos: Vector2 = Vector2.ZERO
 
 
 func _ready():
+	# TODO: What if the mouse is outside the viewport? If the position is clipped to the viewpot size, then the delta offset will be calculated incorrectly.
 	pos = get_viewport().get_mouse_position()
 	window_size = get_viewport().get_size()
 

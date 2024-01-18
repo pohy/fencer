@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvcboseaxqcn3"]
+
+[ext_resource type="QuadMesh" uid="uid://dk8dtajoo8i1u" path="res://src/plank/plank_quad_mesh.tres" id="1_jnkyr"]
+[ext_resource type="Script" path="res://src/paint_canvas.gd" id="2_ql6oh"]
+[ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="3_8bb1p"]
+[ext_resource type="Texture2D" uid="uid://dd64mhb7d2npj" path="res://assets/brush_test.png" id="4_q7x82"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_bd1as"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vemcr"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_bd1as")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhxdn"]
+transparency = 1
+albedo_color = Color(0.741176, 0.290196, 0.596078, 0.792157)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2tmhj"]
+material = SubResource("StandardMaterial3D_yhxdn")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dw831"]
+size = Vector3(0.32, 1.28, 0.02)
+
+[node name="PaintCanvas" type="MeshInstance3D" node_paths=PackedStringArray("brush_sprite", "color_rect")]
+transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 0, 0.0543851, 0.0618922)
+material_override = SubResource("StandardMaterial3D_vemcr")
+mesh = ExtResource("1_jnkyr")
+script = ExtResource("2_ql6oh")
+brush_sprite = NodePath("SubViewport/BrushSprite")
+color_rect = NodePath("SubViewport/ColorRect")
+
+[node name="Mouse" parent="." instance=ExtResource("3_8bb1p")]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(128, 512)
+render_target_clear_mode = 1
+render_target_update_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport"]
+visible = false
+offset_right = 128.0
+offset_bottom = 512.0
+color = Color(0.341176, 0.247059, 0.113725, 1)
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BrushSprite" type="Sprite2D" parent="SubViewport"]
+position = Vector2(64, 256)
+texture = ExtResource("4_q7x82")
+
+[node name="DebugSphere" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_2tmhj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_dw831")

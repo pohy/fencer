@@ -10,7 +10,7 @@ var left_released: bool = false
 var right: bool = false
 var right_pressed: bool = false
 var right_released: bool = false
-var pos: Vector2 = Vector2.ZERO
+var position: Vector2 = Vector2.ZERO
 var from_center: Vector2 = Vector2.ZERO
 var delta: Vector2 = Vector2.ZERO
 var is_moving: bool = false
@@ -22,7 +22,7 @@ var _last_pos: Vector2 = Vector2.ZERO
 
 func _ready():
 	# TODO: What if the mouse is outside the viewport? If the position is clipped to the viewpot size, then the delta offset will be calculated incorrectly.
-	pos = get_viewport().get_mouse_position()
+	position = get_viewport().get_mouse_position()
 	window_size = get_viewport().get_size()
 
 
@@ -41,12 +41,13 @@ func _input(event):
 		is_moving = true
 		delta = event.relative
 
-		pos += delta
-		pos.x = clamp(pos.x, 0, window_size.x)
-		pos.y = clamp(pos.y, 0, window_size.y)
+		# position += delta
+		# position.x = clamp(position.x, 0, window_size.x)
+		# position.y = clamp(position.y, 0, window_size.y)
+		position = event.position
 
-		from_center = (pos / window_size) * 2 - Vector2.ONE
-		_last_pos = pos
+		from_center = (position / window_size) * 2 - Vector2.ONE
+		_last_pos = position
 
 		on_motion.emit()
 

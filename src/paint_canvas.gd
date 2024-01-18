@@ -19,6 +19,9 @@ func _ready():
 	assert(color_rect is ColorRect, "ColorRect must be a ColorRect")
 
 func _process(delta):
+	if not mouse.is_moving:
+		return
+
 	var camera := get_viewport().get_camera_3d()
 	var mouse_pos = get_viewport().get_mouse_position()
 	# print_debug("🐁 Mouse position: %s" % mouse_pos)

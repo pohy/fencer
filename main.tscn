@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=17 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
 [ext_resource type="PackedScene" uid="uid://rtxx66oqi8qk" path="res://src/plank/plank.tscn" id="1_ycpd8"]
@@ -14,17 +14,60 @@ material = SubResource("StandardMaterial3D_rvy51")
 radius = 0.05
 height = 0.1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5dji"]
+albedo_color = Color(0.439216, 0.439216, 0.439216, 1)
+metallic_specular = 0.14
+
+[sub_resource type="BoxMesh" id="BoxMesh_vxhg6"]
+size = Vector3(3.5, 0.5, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8d1ia"]
+size = Vector3(0.3, 1.5, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2umb0"]
+albedo_color = Color(0.341176, 0.247059, 0.113725, 1)
+metallic_specular = 0.14
+
+[sub_resource type="BoxMesh" id="BoxMesh_ux7xu"]
+size = Vector3(3.2, 0.2, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhrvs"]
+albedo_color = Color(0.145098, 0.321569, 0.176471, 1)
+metallic_specular = 0.03
+
+[sub_resource type="BoxMesh" id="BoxMesh_qtkh7"]
+size = Vector3(100, 0.1, 100)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sc7kc"]
+sky_top_color = Color(0.254902, 0.556863, 0.980392, 1)
+sky_horizon_color = Color(0.615686, 0.72549, 0.878431, 1)
+
+[sub_resource type="Sky" id="Sky_3sn1t"]
+sky_material = SubResource("ProceduralSkyMaterial_sc7kc")
+
+[sub_resource type="Environment" id="Environment_ohas3"]
+background_mode = 2
+sky = SubResource("Sky_3sn1t")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_exposure = 1.2
+tonemap_white = 1.8
+
 [node name="Main" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, -4.09353e-16, 3.43488e-16, 3.43488e-16, 0.984808, 0.173648, -4.09353e-16, -0.173648, 0.984808, 2.08165e-12, 0.210057, 1)
+transform = Transform3D(1, -4.09353e-16, 3.43488e-16, 3.7468e-16, 0.99543, 0.0954983, -3.81011e-16, -0.0954983, 0.99543, 2.08165e-12, 1.2359, 1.43735)
 script = ExtResource("1_6fm8c")
 sensitivity = Vector2(4, 4)
+zoom_on_paint = 20.0
 
 [node name="Mouse" parent="Camera3D" instance=ExtResource("2_dgr3k")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.798846, -0.377636, 0.468227, 1.64197e-16, 0.778386, 0.627786, -0.601536, -0.501504, 0.62181, 0, 0, 0.853543)
+shadow_enabled = true
+directional_shadow_mode = 1
 
 [node name="BrushCaster" type="Node3D" parent="."]
 script = ExtResource("2_epem3")
@@ -34,7 +77,40 @@ script = ExtResource("2_epem3")
 [node name="DebugSphere" type="MeshInstance3D" parent="BrushCaster"]
 mesh = SubResource("SphereMesh_wpmo2")
 
+[node name="FenceFrame" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305824, 0)
+material_override = SubResource("StandardMaterial3D_j5dji")
+mesh = SubResource("BoxMesh_vxhg6")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.59342, 1.17717, 0)
+material_override = SubResource("StandardMaterial3D_j5dji")
+mesh = SubResource("BoxMesh_8d1ia")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57864, 1.17717, 0)
+material_override = SubResource("StandardMaterial3D_j5dji")
+mesh = SubResource("BoxMesh_8d1ia")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0702461, 1.6922, -0.0452992)
+material_override = SubResource("StandardMaterial3D_2umb0")
+mesh = SubResource("BoxMesh_ux7xu")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0702461, 0.87666, -0.0452992)
+material_override = SubResource("StandardMaterial3D_2umb0")
+mesh = SubResource("BoxMesh_ux7xu")
+skeleton = NodePath("../..")
+
 [node name="Fence" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24718, 0)
 
 [node name="Plank" parent="Fence" instance=ExtResource("1_ycpd8")]
 transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 0.802215, 2.08165e-12, 2.08165e-12)
@@ -56,3 +132,10 @@ transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398
 
 [node name="Plank7" parent="Fence" instance=ExtResource("1_ycpd8")]
 transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 1.16321, 2.08165e-12, 2.08165e-12)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_hhrvs")
+mesh = SubResource("BoxMesh_qtkh7")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ohas3")

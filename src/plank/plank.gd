@@ -6,7 +6,8 @@ extends StaticBody3D
 @onready var _mesh: MeshInstance3D = $MeshInstance3D
 
 func _process(delta):
-	_brush.visible = false
+	# _brush.visible = false
+	pass
 
 func update_brush(query_result: Dictionary):
 	var viewport_mouse_pos = _calculate_viewport_mouse_position(query_result.position)

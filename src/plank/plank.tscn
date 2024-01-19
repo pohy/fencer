@@ -36,5 +36,6 @@ render_target_update_mode = 1
 
 [node name="BrushSprite" type="Sprite2D" parent="SubViewport"]
 visible = false
+modulate = Color(0.0392157, 0.439216, 0.0941176, 1)
 scale = Vector2(3, 3)
 texture = ExtResource("2_jp6nv")

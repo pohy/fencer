@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://rtxx66oqi8qk"]
 
 [ext_resource type="Script" path="res://src/plank/plank.gd" id="1_jdwdj"]
-[ext_resource type="Texture2D" uid="uid://dd64mhb7d2npj" path="res://assets/brush_test.png" id="2_jp6nv"]
 [ext_resource type="Material" uid="uid://b1tgmtf1n1c81" path="res://src/plank/plank_viewport_texture.tres" id="2_nhm1a"]
+[ext_resource type="Texture2D" uid="uid://cf2vqyrqtt3q7" path="res://assets/brush_test_solid.png" id="3_325wi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ytpvs"]
 size = Vector3(0.32, 1.28, 0.02)
@@ -37,5 +37,5 @@ render_target_update_mode = 1
 [node name="BrushSprite" type="Sprite2D" parent="SubViewport"]
 visible = false
 modulate = Color(0.0392157, 0.439216, 0.0941176, 1)
-scale = Vector2(3, 3)
-texture = ExtResource("2_jp6nv")
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_325wi")

@@ -3,7 +3,6 @@
 [ext_resource type="QuadMesh" uid="uid://dk8dtajoo8i1u" path="res://src/plank/plank_quad_mesh.tres" id="1_jnkyr"]
 [ext_resource type="Script" path="res://src/paint_canvas.gd" id="2_ql6oh"]
 [ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="3_8bb1p"]
-[ext_resource type="Texture2D" uid="uid://dd64mhb7d2npj" path="res://assets/brush_test.png" id="4_q7x82"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_bd1as"]
 viewport_path = NodePath("SubViewport")
@@ -11,6 +10,9 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vemcr"]
 resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_bd1as")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w2ks7"]
+load_path = "res://.godot/imported/brush_test.png-835488bb291270d9d32a0df128ab5db7.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhxdn"]
 transparency = 1
@@ -54,7 +56,7 @@ offset_bottom = 40.0
 
 [node name="BrushSprite" type="Sprite2D" parent="SubViewport"]
 position = Vector2(64, 256)
-texture = ExtResource("4_q7x82")
+texture = SubResource("CompressedTexture2D_w2ks7")
 
 [node name="DebugSphere" type="MeshInstance3D" parent="."]
 visible = false

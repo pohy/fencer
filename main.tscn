@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=7 format=3 uid="uid://cxvmv11a2iusl"]
 
+[ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
 [ext_resource type="PackedScene" uid="uid://rtxx66oqi8qk" path="res://src/plank/plank.tscn" id="1_ycpd8"]
 [ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="2_dgr3k"]
 [ext_resource type="Script" path="res://src/brush_caster.gd" id="2_epem3"]
@@ -16,30 +17,14 @@ height = 0.1
 [node name="Main" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.894864, -0.111098, 0.432291, -1.87806e-09, 0.968527, 0.24891, -0.446338, -0.22274, 0.8667, 0, 0.399472, 1.0243)
+transform = Transform3D(1, -4.09353e-16, 3.43488e-16, 3.43488e-16, 0.984808, 0.173648, -4.09353e-16, -0.173648, 0.984808, 2.08165e-12, 0.210057, 1)
+script = ExtResource("1_6fm8c")
+sensitivity = Vector2(4, 4)
+
+[node name="Mouse" parent="Camera3D" instance=ExtResource("2_dgr3k")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.798846, -0.377636, 0.468227, 1.64197e-16, 0.778386, 0.627786, -0.601536, -0.501504, 0.62181, 0, 0, 0.853543)
-
-[node name="Plank" parent="." instance=ExtResource("1_ycpd8")]
-
-[node name="Plank2" parent="." instance=ExtResource("1_ycpd8")]
-transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, -0.368138, 0.0543851, 0.0618922)
-
-[node name="Plank3" parent="." instance=ExtResource("1_ycpd8")]
-transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, -0.762784, 0.0543851, 0.0618922)
-
-[node name="Plank4" parent="." instance=ExtResource("1_ycpd8")]
-transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, -1.15251, 0.0543851, 0.0618922)
-
-[node name="Plank5" parent="." instance=ExtResource("1_ycpd8")]
-transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, -1.5413, 0.0543851, 0.0618922)
-
-[node name="Plank6" parent="." instance=ExtResource("1_ycpd8")]
-transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, -1.94173, 0.0543851, 0.0618922)
-
-[node name="Plank7" parent="." instance=ExtResource("1_ycpd8")]
-transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 0.360993, 0.0543851, 0.0618922)
 
 [node name="BrushCaster" type="Node3D" parent="."]
 script = ExtResource("2_epem3")
@@ -48,3 +33,26 @@ script = ExtResource("2_epem3")
 
 [node name="DebugSphere" type="MeshInstance3D" parent="BrushCaster"]
 mesh = SubResource("SphereMesh_wpmo2")
+
+[node name="Fence" type="Node3D" parent="."]
+
+[node name="Plank" parent="Fence" instance=ExtResource("1_ycpd8")]
+transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 0.802215, 2.08165e-12, 2.08165e-12)
+
+[node name="Plank2" parent="Fence" instance=ExtResource("1_ycpd8")]
+transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 0.434077, 2.08165e-12, 2.08165e-12)
+
+[node name="Plank3" parent="Fence" instance=ExtResource("1_ycpd8")]
+transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 0.0394307, 2.08165e-12, 2.08165e-12)
+
+[node name="Plank4" parent="Fence" instance=ExtResource("1_ycpd8")]
+transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, -0.350295, 2.08165e-12, 2.08165e-12)
+
+[node name="Plank5" parent="Fence" instance=ExtResource("1_ycpd8")]
+transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, -0.739085, 2.08165e-12, 2.08165e-12)
+
+[node name="Plank6" parent="Fence" instance=ExtResource("1_ycpd8")]
+transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, -1.13952, 2.08165e-12, 2.08165e-12)
+
+[node name="Plank7" parent="Fence" instance=ExtResource("1_ycpd8")]
+transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 1.16321, 2.08165e-12, 2.08165e-12)

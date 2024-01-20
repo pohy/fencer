@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=18 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
 [ext_resource type="PackedScene" uid="uid://rtxx66oqi8qk" path="res://src/plank/plank.tscn" id="1_ycpd8"]
 [ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="2_dgr3k"]
 [ext_resource type="Script" path="res://src/brush_caster.gd" id="2_epem3"]
+[ext_resource type="PackedScene" uid="uid://bwryn58kush3o" path="res://src/brush.tscn" id="4_uayg8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvy51"]
 transparency = 1
@@ -53,6 +54,14 @@ reflected_light_source = 2
 tonemap_mode = 2
 tonemap_exposure = 1.2
 tonemap_white = 1.8
+fog_enabled = true
+fog_light_energy = 0.4
+fog_sun_scatter = 0.2
+fog_sky_affect = 0.18
+adjustment_enabled = true
+adjustment_brightness = 1.15
+adjustment_contrast = 1.12
+adjustment_saturation = 1.12
 
 [node name="Main" type="Node3D"]
 
@@ -60,22 +69,35 @@ tonemap_white = 1.8
 transform = Transform3D(1, -4.09353e-16, 3.43488e-16, 3.7468e-16, 0.99543, 0.0954983, -3.81011e-16, -0.0954983, 0.99543, 2.08165e-12, 1.2359, 1.43735)
 script = ExtResource("1_6fm8c")
 sensitivity = Vector2(4, 4)
+sensitivity_zoomed_multiplier = null
 zoom_on_paint = 20.0
+zoom_speed = null
 
 [node name="Mouse" parent="Camera3D" instance=ExtResource("2_dgr3k")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.798846, -0.377636, 0.468227, 1.64197e-16, 0.778386, 0.627786, -0.601536, -0.501504, 0.62181, 0, 0, 0.853543)
 shadow_enabled = true
-directional_shadow_mode = 1
+shadow_opacity = 0.94
+shadow_blur = 1.1
+directional_shadow_fade_start = 0.1
+directional_shadow_max_distance = 40.0
+directional_shadow_pancake_size = 0.0
 
 [node name="BrushCaster" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4808, 0.507841)
 script = ExtResource("2_epem3")
 
 [node name="Mouse" parent="BrushCaster" instance=ExtResource("2_dgr3k")]
 
 [node name="DebugSphere" type="MeshInstance3D" parent="BrushCaster"]
+visible = false
 mesh = SubResource("SphereMesh_wpmo2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BrushCaster/DebugSphere"]
+
+[node name="Brush" parent="BrushCaster" instance=ExtResource("4_uayg8")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.8428, -0.30727)
 
 [node name="FenceFrame" type="Node3D" parent="."]
 

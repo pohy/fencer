@@ -5,15 +5,13 @@ extends StaticBody3D
 @onready var _brush: Sprite2D = $SubViewport/BrushSprite
 @onready var _mesh: MeshInstance3D = $MeshInstance3D
 
-func _process(delta):
-	# _brush.visible = false
-	pass
 
-func update_brush(query_result: Dictionary):
+func stroke_brush(query_result: Dictionary, opacity: float = 1.0, scale: float = 1.0):
 	var viewport_mouse_pos = _calculate_viewport_mouse_position(query_result.position)
 	_sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	_brush.visible = true
 	_brush.position = viewport_mouse_pos
+	_brush.modulate.a = opacity
 
 func _calculate_viewport_mouse_position(mouse_position_3d: Vector3) -> Vector2:
 	var mouse_pos_3d := global_transform.affine_inverse() * mouse_position_3d

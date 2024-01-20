@@ -12,7 +12,6 @@ resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_bd1as")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w2ks7"]
-load_path = "res://.godot/imported/brush_test.png-835488bb291270d9d32a0df128ab5db7.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhxdn"]
 transparency = 1

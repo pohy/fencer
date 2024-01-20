@@ -21,7 +21,7 @@ top_radius = 0.09
 bottom_radius = 0.09
 height = 0.1
 
-[node name="Brush" type="Node3D"]
+[node name="BrushModel" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_lu0fu")

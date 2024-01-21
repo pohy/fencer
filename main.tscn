@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=23 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
 [ext_resource type="PackedScene" uid="uid://rtxx66oqi8qk" path="res://src/plank/plank.tscn" id="1_ycpd8"]
@@ -14,6 +14,24 @@ albedo_color = Color(0.741176, 0.290196, 0.596078, 0.792157)
 material = SubResource("StandardMaterial3D_rvy51")
 radius = 0.05
 height = 0.1
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qag6c"]
+viewport_path = NodePath("BrushCaster/BrushModel/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c2vv6"]
+resource_local_to_scene = true
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.0862745)
+albedo_texture = SubResource("ViewportTexture_qag6c")
+
+[sub_resource type="QuadMesh" id="QuadMesh_3gg84"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4h4xa"]
+bg_color = Color(0.235294, 0.392157, 0.521569, 0.87451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0togf"]
+bg_color = Color(0.988235, 0.847059, 0.207843, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5dji"]
 albedo_color = Color(0.439216, 0.439216, 0.439216, 1)
@@ -88,6 +106,7 @@ script = ExtResource("2_epem3")
 speed = 0.5
 depletion_rate = 0.01
 apply_interval_s = 0.01
+apply_velocity_multiplier = null
 
 [node name="Mouse" parent="BrushCaster" instance=ExtResource("2_dgr3k")]
 
@@ -99,6 +118,25 @@ mesh = SubResource("SphereMesh_wpmo2")
 
 [node name="BrushModel" parent="BrushCaster" instance=ExtResource("4_uayg8")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.8428, -0.30727)
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="BrushCaster/BrushModel"]
+transform = Transform3D(1, 0, 0, 0, -7.94571e-08, 1, 0, -1, -6.65549e-08, -0.0771281, 0.0946501, 0)
+material_override = SubResource("StandardMaterial3D_c2vv6")
+mesh = SubResource("QuadMesh_3gg84")
+
+[node name="SubViewport" type="SubViewport" parent="BrushCaster/BrushModel"]
+transparent_bg = true
+
+[node name="ProgressBar" type="ProgressBar" parent="BrushCaster/BrushModel/SubViewport"]
+offset_right = 128.0
+offset_bottom = 512.0
+theme_override_styles/background = SubResource("StyleBoxFlat_4h4xa")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0togf")
+max_value = 1.0
+step = 0.001
+value = 1.0
+fill_mode = 3
+show_percentage = false
 
 [node name="FenceFrame" type="Node3D" parent="."]
 

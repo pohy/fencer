@@ -3,10 +3,12 @@ extends Node3D
 @export var speed: float = 1.0
 @export var depletion_rate: float = 1.0
 @export var apply_interval_s: float = 0.1
+@export var apply_velocity_multiplier: float = 1.0
 
 @onready var _mouse: MouseInpt = $Mouse
 @onready var _debug_sphere: MeshInstance3D = $DebugSphere
 @onready var _brush_model: Node3D = $BrushModel
+@onready var _brush_fill_progress: ProgressBar = $BrushModel/SubViewport/ProgressBar
 
 
 var _target_position: Vector2 = Vector2.ZERO
@@ -27,7 +29,7 @@ func _process(delta):
 	_distance_travelled += velocity
 
 	# _paint_fill = sin(_distance_travelled * depletion_rate) * 0.5 + 0.5
-	print_debug("Move delta: %s" % velocity)
+	# print_debug("Move delta: %s" % velocity)
 	# print_debug("Paint fill: %s" % _paint_fill)
 
 	# if (_current_position - _target_position).length_squared() < 0.01:
@@ -38,7 +40,7 @@ func _process(delta):
 	else:
 		_since_last_application_s = 0.0
 	var current_apply_interval_s = apply_interval_s / max(1, velocity)
-	print_debug("apply interval: %s" % current_apply_interval_s)
+	# print_debug("apply interval: %s" % current_apply_interval_s)
 	if _since_last_application_s > current_apply_interval_s:
 		_since_last_application_s = 0.0
 
@@ -57,5 +59,9 @@ func _process(delta):
 		# _debug_sphere.position = query.position + query.normal * 0.1
 		_brush_model.global_position = query.position + query.normal * 0.1
 		if _mouse.left and _since_last_application_s <= 0.0 and velocity > 0.0:
+			var paint_used = depletion_rate * velocity * apply_velocity_multiplier * delta
+			# print_debug("paint used: %s" % paint_used)
 			query.collider.stroke_brush(query, _paint_fill * 0.1)
-			_paint_fill = max(0.0, _paint_fill - depletion_rate * velocity * delta)
+			_paint_fill = max(0.0, _paint_fill - paint_used)
+
+	_brush_fill_progress.value = _paint_fill

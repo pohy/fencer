@@ -104,9 +104,10 @@ directional_shadow_pancake_size = 0.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4808, 0.507841)
 script = ExtResource("2_epem3")
 speed = 0.5
-depletion_rate = 0.01
+depletion_rate = 0.001
 apply_interval_s = 0.01
-apply_velocity_multiplier = null
+apply_velocity_multiplier = 10.0
+tilt_amount = 22.0
 
 [node name="Mouse" parent="BrushCaster" instance=ExtResource("2_dgr3k")]
 

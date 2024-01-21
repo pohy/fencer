@@ -4,6 +4,7 @@ extends Node3D
 @export var depletion_rate: float = 1.0
 @export var apply_interval_s: float = 0.1
 @export var apply_velocity_multiplier: float = 1.0
+@export var tilt_amount: float = 10.0
 
 @onready var _mouse: MouseInpt = $Mouse
 @onready var _debug_sphere: MeshInstance3D = $DebugSphere
@@ -16,6 +17,10 @@ var _current_position: Vector2 = Vector2.ZERO
 var _paint_fill: float = 1.0
 var _distance_travelled: float = 0.0
 var _since_last_application_s: float = 0.0
+var _brush_initial_basis: Basis = Basis.IDENTITY
+
+func _ready():
+	_brush_initial_basis = Basis(_brush_model.basis)
 
 func _process(delta):
 	# if not _mouse.is_moving:
@@ -27,6 +32,20 @@ func _process(delta):
 	var velocity = move_delta.length()
 	_current_position -= move_delta
 	_distance_travelled += velocity
+
+	# var target_rotation = _brush_initial_basis + Vector3(-move_delta.y, 0.0, move_delta.x).normalized() * 30
+	# _brush_model.rotation_degrees = lerp(_brush_model.rotation_degrees, target_rotation, delta * 10)
+	# var target_basis = _brush_initial_basis + Basis.from_euler(Vector3(-move_delta.y, 0.0, move_delta.x).normalized() * 30, EULER_ORDER_XYZ)
+	# print_debug("Move delta: %s, normalized: %s" % [move_delta, move_delta.normalized()])
+	# print_debug("velocity: %s, squared: %s" % [velocity, move_delta.length_squared()])
+	# TODO: The velocity is resolution dependent
+	var tilt_amount_rad = deg_to_rad(min(tilt_amount, velocity * (10 if _mouse.left else 2)))
+	# var target_basis = _brush_initial_basis if not _mouse.left else _brush_initial_basis \
+	var target_basis = _brush_initial_basis \
+		.rotated(_brush_initial_basis.z, move_delta.normalized().x * tilt_amount_rad) \
+		.rotated(_brush_initial_basis.x, -move_delta.normalized().y * tilt_amount_rad)
+		# .rotated(Vector3.DOWN, move_delta.normalized().y * tilt_amount)
+	_brush_model.basis = _brush_model.basis.slerp(target_basis, delta * max(10, velocity))
 
 	# _paint_fill = sin(_distance_travelled * depletion_rate) * 0.5 + 0.5
 	# print_debug("Move delta: %s" % velocity)

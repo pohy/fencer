@@ -1,19 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=21 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
 [ext_resource type="PackedScene" uid="uid://rtxx66oqi8qk" path="res://src/plank/plank.tscn" id="1_ycpd8"]
 [ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="2_dgr3k"]
 [ext_resource type="Script" path="res://src/brush_caster.gd" id="2_epem3"]
 [ext_resource type="PackedScene" uid="uid://bwryn58kush3o" path="res://src/brush_model.tscn" id="4_uayg8"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvy51"]
-transparency = 1
-albedo_color = Color(0.741176, 0.290196, 0.596078, 0.792157)
-
-[sub_resource type="SphereMesh" id="SphereMesh_wpmo2"]
-material = SubResource("StandardMaterial3D_rvy51")
-radius = 0.05
-height = 0.1
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_qag6c"]
 viewport_path = NodePath("BrushCaster/BrushModel/SubViewport")
@@ -110,12 +101,6 @@ apply_velocity_multiplier = 10.0
 tilt_amount = 22.0
 
 [node name="Mouse" parent="BrushCaster" instance=ExtResource("2_dgr3k")]
-
-[node name="DebugSphere" type="MeshInstance3D" parent="BrushCaster"]
-visible = false
-mesh = SubResource("SphereMesh_wpmo2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="BrushCaster/DebugSphere"]
 
 [node name="BrushModel" parent="BrushCaster" instance=ExtResource("4_uayg8")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.8428, -0.30727)

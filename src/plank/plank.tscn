@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/plank/plank.gd" id="1_jdwdj"]
 [ext_resource type="Material" uid="uid://b1tgmtf1n1c81" path="res://src/plank/plank_viewport_texture.tres" id="2_nhm1a"]
-[ext_resource type="Texture2D" uid="uid://cf2vqyrqtt3q7" path="res://assets/brush_test_solid.png" id="3_325wi"]
+[ext_resource type="Texture2D" uid="uid://ceehs7bd2r8lq" path="res://assets/brush_test_striped.png" id="3_iwkq0"]
 [ext_resource type="Script" path="res://src/plank/brush.gd" id="4_4hmyc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ytpvs"]
@@ -39,5 +39,5 @@ render_target_update_mode = 1
 visible = false
 modulate = Color(0.0392157, 0.439216, 0.0941176, 1)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_325wi")
+texture = ExtResource("3_iwkq0")
 script = ExtResource("4_4hmyc")

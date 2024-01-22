@@ -17,6 +17,9 @@ var _paint_fill: float = 1.0
 var _distance_travelled: float = 0.0
 var _since_last_application_s: float = 0.0
 var _brush_initial_basis: Basis = Basis.IDENTITY
+var _is_above_plank: bool = false
+var _mouse_position_3d: Vector3 = Vector3.ZERO
+var _current_plank: Plank = null
 
 func _ready():
 	_brush_initial_basis = Basis(_brush_model.basis)
@@ -35,26 +38,39 @@ func _process(delta):
 	if _mouse.left_released:
 		_paint_fill = 1.0
 
+	_update_brush_position()
 	_apply_brush_stroke(delta, move_delta, velocity)
 
 	_brush_fill_progress.value = _paint_fill
 
-func _apply_brush_stroke(delta: float, move_delta: Vector2, velocity: float):
+func _update_brush_position():
 	var camera := get_viewport().get_camera_3d()
 	var from := camera.project_ray_origin(_current_position)
 	var to := from + camera.project_ray_normal(_current_position) * 1000
 	var query_params := PhysicsRayQueryParameters3D.create(from, to)
 	var query := get_world_3d().direct_space_state.intersect_ray(query_params)
 
-	var is_plank_hit = query.size() > 0 and query.collider is Plank
-	if is_plank_hit:
-		_brush_model.global_position = query.position + query.normal * 0.1
-		if _mouse.left and _since_last_application_s <= 0.0 and velocity > 0.0:
-			var paint_used = depletion_rate * velocity * apply_velocity_multiplier * delta
-			# TODO: Pass current paint color
-			var dir_rotation = rad_to_deg(atan2(move_delta.y, move_delta.x)) - 90
-			query.collider.stroke_brush(query, _paint_fill * 0.1, dir_rotation)
-			_paint_fill = max(0.0, _paint_fill - paint_used)
+	if query.size() <= 0:
+		# TODO: Move brush to a "resting" position
+		return
+
+	_is_above_plank = query.size() > 0 and query.collider is Plank
+	_mouse_position_3d = query.position
+	_brush_model.global_position = query.position + query.normal * 0.1
+	_current_plank = query.collider if _is_above_plank else null
+	
+
+func _apply_brush_stroke(delta: float, move_delta: Vector2, velocity: float):
+	if not _is_above_plank or _current_plank == null:
+		return
+
+	if _mouse.left and _since_last_application_s <= 0.0 and velocity > 0.0:
+		var paint_used = depletion_rate * velocity * apply_velocity_multiplier * delta
+		# TODO: Pass current paint color
+		var dir_rotation = rad_to_deg(atan2(move_delta.y, move_delta.x)) - 90
+
+		_current_plank.stroke_brush(_mouse_position_3d, _paint_fill * 0.1, dir_rotation)
+		_paint_fill = max(0.0, _paint_fill - paint_used)
 
 func _update_application_timers(delta: float, velocity: float):
 	if _mouse.left:

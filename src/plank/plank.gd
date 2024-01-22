@@ -7,8 +7,8 @@ extends StaticBody3D
 
 
 # TODO: Accept modulation color
-func stroke_brush(query_result: Dictionary, opacity: float = 1.0, rotation: float = 0.0, scale: float = 1.0):
-	var viewport_mouse_pos = _calculate_viewport_mouse_position(query_result.position)
+func stroke_brush(cursor_position_3d: Vector3, opacity: float = 1.0, rotation: float = 0.0, scale: float = 1.0):
+	var viewport_mouse_pos = _calculate_viewport_mouse_position(cursor_position_3d)
 	_sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	_brush.visible = true
 	_brush.position = viewport_mouse_pos

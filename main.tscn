@@ -94,7 +94,7 @@ directional_shadow_pancake_size = 0.0
 [node name="BrushCaster" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4808, 0.507841)
 script = ExtResource("2_epem3")
-speed = 0.5
+brush_speed = 10.0
 depletion_rate = 0.001
 apply_interval_s = 0.01
 apply_velocity_multiplier = 10.0

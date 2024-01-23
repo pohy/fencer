@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://src/plank/brush.gd" id="4_4hmyc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ytpvs"]
-size = Vector3(0.32, 1.28, 0.02)
+size = Vector3(0.32, 1.28, 2.08165e-12)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2f83b"]
 albedo_color = Color(0.341176, 0.247059, 0.113725, 1)

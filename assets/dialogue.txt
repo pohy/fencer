@@ -2,7 +2,6 @@
 [b]Trebuchet squads[/b]: [i]Screams in excitement[/i]
 [b]General[/b]: Good, good! Today, we are to conquer the castle and the treasures within. We have been starving them for long enough. They are weak after weeks of no supplies.
 [b]General[/b]: The king will be proud and I am sure the reward for the successful conquest will be adequate. For every. One. Of. You. My loyal soldiers.
-
 [i]Meanwhile at the castle[/i]
 [b]Princess[/b]: Well, well, my ladies, this brew has turned out absolutely lovely.
 [b]One of the ladies[/b]: I am so glad! But... Shouldn't we be worried about the soldiers outside?
@@ -15,7 +14,6 @@
 [b]Princess[/b]: So, [i]Another lady[/i], what about the dress I have sent you. Did you...
 [i]Doors blast open[/i]
 [b]General[/b]: Here you are! Soldiers, take hold of them! The king will be very, very pleased we took them alive!
-
 [b]Marie[/b]: Henry, why do you always have to do this?!
 [b]One of her friends[/b]: Here we go again...
 [b]Henry[/b]: Do what? We have successfully breached your measly defences.

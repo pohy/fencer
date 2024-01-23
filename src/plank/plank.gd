@@ -3,7 +3,7 @@ extends StaticBody3D
 
 signal fill_updated(fill_delta: float)
 
-@export var fill_interval_s: float = 1.0
+@export var fill_fetch_interval_s: float = 1.0
 
 var fill_amount: float:
 	get:
@@ -50,7 +50,7 @@ func stroke_brush(cursor_position_3d: Vector3, opacity: float = 1.0, rotation: f
 	_brush.modulate.a = opacity
 	_brush.rotation_degrees = rotation
 
-	if Time.get_ticks_msec() - _last_fill_fetch_at > fill_interval_s * 1000:
+	if Time.get_ticks_msec() - _last_fill_fetch_at > fill_fetch_interval_s * 1000:
 		_update_fill_amount()
 		_inactive_timer.stop()
 	else:

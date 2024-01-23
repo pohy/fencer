@@ -14,7 +14,7 @@ albedo_color = Color(0.341176, 0.247059, 0.113725, 1)
 [sub_resource type="QuadMesh" id="QuadMesh_p4u8x"]
 size = Vector2(0.32, 1.28)
 
-[node name="Plank" type="StaticBody3D"]
+[node name="Plank" type="StaticBody3D" groups=["plank"]]
 transform = Transform3D(0.999398, 0, 0.0346902, 0, 1, 0, -0.0346902, 0, 0.999398, 0, 0.0543851, 0.0618922)
 collision_layer = 2
 collision_mask = 0
@@ -41,3 +41,7 @@ modulate = Color(0.0392157, 0.439216, 0.0941176, 1)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("3_iwkq0")
 script = ExtResource("4_4hmyc")
+
+[node name="InactiveTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

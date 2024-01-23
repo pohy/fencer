@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=23 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
+[ext_resource type="Script" path="res://src/paint_progress_tracker.gd" id="1_g2ks0"]
 [ext_resource type="PackedScene" uid="uid://rtxx66oqi8qk" path="res://src/plank/plank.tscn" id="1_ycpd8"]
 [ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="2_dgr3k"]
 [ext_resource type="Script" path="res://src/brush_caster.gd" id="2_epem3"]
@@ -74,6 +75,9 @@ adjustment_contrast = 1.12
 adjustment_saturation = 1.12
 
 [node name="Main" type="Node3D"]
+
+[node name="PaintProgressTracker" type="Node" parent="."]
+script = ExtResource("1_g2ks0")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, -4.09353e-16, 3.43488e-16, 3.7468e-16, 0.99543, 0.0954983, -3.81011e-16, -0.0954983, 0.99543, 2.08165e-12, 1.2359, 1.43735)

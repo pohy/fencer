@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://cq6gjuo1v3d0t"]
+
+[ext_resource type="Script" path="res://src/dialogue.gd" id="1_wr6rx"]
+[ext_resource type="FontFile" uid="uid://ccdhne1mfhddj" path="res://assets/fonts/Mali-Regular.ttf" id="2_317gv"]
+[ext_resource type="FontFile" uid="uid://ct0cs7hwqm252" path="res://assets/fonts/Mali-Bold.ttf" id="3_eq2hu"]
+[ext_resource type="FontFile" uid="uid://dk7x0vb30xx48" path="res://assets/fonts/Mali-Italic.ttf" id="4_2bo6s"]
+
+[node name="Dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wr6rx")
+
+[node name="BackgroundRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(2.08165e-12, 200)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(2.08165e-12, 200)
+color = Color(0.4, 0.4, 0.4, 0.4)
+
+[node name="MarginContainer" type="MarginContainer" parent="BackgroundRect"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BackgroundRect/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_317gv")
+theme_override_fonts/bold_font = ExtResource("3_eq2hu")
+theme_override_fonts/italics_font = ExtResource("4_2bo6s")
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+bbcode_enabled = true
+text = "Neco [i]neco[/i], vyplnovy [b]text[/b] na zacatek"
+fit_content = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true

@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=22 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
 [ext_resource type="PackedScene" uid="uid://rtxx66oqi8qk" path="res://src/plank/plank.tscn" id="1_ycpd8"]
 [ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="2_dgr3k"]
 [ext_resource type="Script" path="res://src/brush_caster.gd" id="2_epem3"]
 [ext_resource type="PackedScene" uid="uid://bwryn58kush3o" path="res://src/brush_model.tscn" id="4_uayg8"]
+[ext_resource type="PackedScene" uid="uid://cq6gjuo1v3d0t" path="res://src/dialogue.tscn" id="6_ck7kd"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_qag6c"]
 viewport_path = NodePath("BrushCaster/BrushModel/SubViewport")
@@ -81,6 +82,8 @@ sensitivity = Vector2(4, 4)
 zoom_on_paint = 2.0
 
 [node name="Mouse" parent="Camera3D" instance=ExtResource("2_dgr3k")]
+
+[node name="Dialogue" parent="." instance=ExtResource("6_ck7kd")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.798846, -0.377636, 0.468227, 1.64197e-16, 0.778386, 0.627786, -0.601536, -0.501504, 0.62181, 0, 0, 0.853543)

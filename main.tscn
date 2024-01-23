@@ -87,7 +87,8 @@ zoom_on_paint = 2.0
 
 [node name="Mouse" parent="Camera3D" instance=ExtResource("2_dgr3k")]
 
-[node name="Dialogue" parent="." instance=ExtResource("6_ck7kd")]
+[node name="Dialogue" parent="." node_paths=PackedStringArray("paint_progress_tracker") instance=ExtResource("6_ck7kd")]
+paint_progress_tracker = NodePath("../PaintProgressTracker")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.798846, -0.377636, 0.468227, 1.64197e-16, 0.778386, 0.627786, -0.601536, -0.501504, 0.62181, 0, 0, 0.853543)
@@ -104,7 +105,7 @@ script = ExtResource("2_epem3")
 brush_speed = 10.0
 depletion_rate = 0.001
 apply_interval_s = 0.01
-apply_velocity_multiplier = 10.0
+apply_velocity_multiplier = 2.0
 tilt_amount = 22.0
 
 [node name="Mouse" parent="BrushCaster" instance=ExtResource("2_dgr3k")]

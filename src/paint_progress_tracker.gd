@@ -1,3 +1,4 @@
+class_name PaintProgressTracker
 extends Node
 
 signal updated(progress: float)

@@ -32,5 +32,3 @@ func _activate_segment(segment: FenceSegment):
 	_active_segment = segment
 	_active_segment.is_active = true
 	_camera.target_position = _active_segment.camera_position
-			
-

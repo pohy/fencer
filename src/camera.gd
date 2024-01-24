@@ -12,12 +12,12 @@ var target_position: Node3D = null
 @onready var _mouse: MouseInpt = $Mouse
 @onready var _sensitivity: Vector2 = sensitivity
 
-var _base_rotation: Vector3 = Vector3.ZERO
+var _initial_basis: Basis = Basis.IDENTITY
 var _initial_fov: float = 0.0
 var _is_zoomed: bool = false
 
 func _ready():
-	_base_rotation = global_rotation
+	_initial_basis = Basis(global_transform.basis)
 	_initial_fov = fov
 
 func _process(delta):
@@ -30,10 +30,11 @@ func _process(delta):
 
 func _transition_to_target_position(delta: float):
 	if target_position == null:
+		# print_debug("No target position set for camera")
 		return
 
 	global_position = lerp(global_position, target_position.global_position, transition_speed * delta)
-	_base_rotation = _base_rotation.slerp(target_position.global_rotation, transition_speed * delta)
+	_initial_basis = _initial_basis.slerp(target_position.global_transform.basis, transition_speed * delta)
 
 func _apply_rotation(delta: float):
 	var target_sensitivity = sensitivity * sensitivity_zoomed_multiplier if _is_zoomed else sensitivity
@@ -43,8 +44,9 @@ func _apply_rotation(delta: float):
 		return
 
 	var rotation_offset := _mouse.from_center * _sensitivity
-	global_rotation.x = _base_rotation.x - deg_to_rad(rotation_offset.y)
-	global_rotation.y = _base_rotation.y - deg_to_rad(rotation_offset.x)
+	global_transform.basis = _initial_basis \
+		.rotated(global_transform.basis.y, deg_to_rad(-rotation_offset.x)) \
+		.rotated(global_transform.basis.x, deg_to_rad(-rotation_offset.y))
 
 func _apply_zoom(delta: float):
 	var target_fov = _initial_fov - zoom_on_paint if _is_zoomed else _initial_fov

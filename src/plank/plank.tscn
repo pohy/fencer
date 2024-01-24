@@ -9,6 +9,7 @@
 size = Vector3(0.32, 1.28, 2.08165e-12)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2f83b"]
+cull_mode = 2
 albedo_color = Color(0.341176, 0.247059, 0.113725, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_p4u8x"]

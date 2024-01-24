@@ -16,7 +16,6 @@ var _current_cursor_position: Vector2 = Vector2.ZERO
 var _paint_fill: float = 1.0
 var _distance_travelled: float = 0.0
 var _since_last_application_s: float = 0.0
-var _is_above_plank: bool = false
 var _mouse_position_3d: Vector3 = Vector3.ZERO
 var _current_plank: Plank = null
 var _target_brush_position: Vector3 = Vector3.ZERO
@@ -47,30 +46,37 @@ func _process(delta):
 
 func _update_brush_position(delta: float):
 	var camera := get_viewport().get_camera_3d()
-	var origin := camera.project_ray_origin(_current_cursor_position)
-	var direction := camera.project_ray_normal(_current_cursor_position)
-	var to := origin + direction * 1000
-	var query_params := PhysicsRayQueryParameters3D.create(origin, to)
+	var ray_origin := camera.project_ray_origin(_current_cursor_position)
+	var ray_direction := camera.project_ray_normal(_current_cursor_position)
+	var to := ray_origin + ray_direction * 1000
+	var query_params := PhysicsRayQueryParameters3D.create(ray_origin, to)
 	var query := get_world_3d().direct_space_state.intersect_ray(query_params)
 
-	_is_above_plank = query.size() > 0 and query.collider is Plank and query.collider.is_active
+	var is_plank_hit = query.size() > 0 and query.collider is Plank and query.collider.is_active
 
-	if _is_above_plank:
+	if is_plank_hit:
 		_mouse_position_3d = query.position
-		# _brush_model.global_position = query.position + query.normal * 0.1
-		var distance_from_plank = 0.05 if _mouse.left else 0.18
-		_target_brush_position = query.position + query.normal * distance_from_plank
-		_current_plank = query.collider# if _is_above_plank else null
+		_current_plank = query.collider
+	else:
+		# TODO: The brush lags behind the cursor heavily, but good enough for now :)
+		var prev_mouse_pos = _current_cursor_position - _mouse.delta
+		var world_space_cursor_delta = _camera.project_ray_normal(_current_cursor_position) - _camera.project_ray_normal(prev_mouse_pos)
+		_mouse_position_3d += world_space_cursor_delta
 
-	if not _is_above_plank and not _mouse.left:
+	if not is_plank_hit and not _mouse.left:
 		_current_plank = null
-		_target_brush_position = origin + direction
+
+	if _current_plank != null:
+		var distance_from_plank = 0.05 if _mouse.left else 0.18
+		_target_brush_position = _mouse_position_3d - ray_direction * distance_from_plank
+	else:
+		_target_brush_position = ray_origin + ray_direction
 
 	_brush_model.global_position = lerp(_brush_model.global_position, _target_brush_position, brush_speed * delta)
 	
 
 func _apply_brush_stroke(delta: float, move_delta: Vector2, velocity: float):
-	if not _is_above_plank or _current_plank == null:
+	if _current_plank == null:
 		return
 
 	if _mouse.left and _since_last_application_s <= 0.0 and velocity > 0.0:

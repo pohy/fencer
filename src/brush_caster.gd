@@ -1,3 +1,4 @@
+class_name BrushCaster
 extends Node3D
 
 @export var brush_speed: float = 1.0
@@ -6,10 +7,14 @@ extends Node3D
 @export var apply_velocity_multiplier: float = 1.0
 @export var tilt_amount: float = 10.0
 
+var velocity: float = 0.0
+var is_painting: bool:
+	get:
+		return _mouse.left and _current_plank != null
+
 @onready var _mouse: MouseInpt = $Mouse
 @onready var _brush_model: Node3D = $BrushModel
 @onready var _brush_fill_progress: ProgressBar = $BrushModel/SubViewport/ProgressBar
-
 
 var _target_cursor_position: Vector2 = Vector2.ZERO
 var _current_cursor_position: Vector2 = Vector2.ZERO
@@ -27,8 +32,8 @@ func _ready():
 
 func _process(delta):
 	_target_cursor_position = _mouse.position
-	var move_delta = _current_cursor_position - _target_cursor_position
-	var velocity = move_delta.length()
+	var move_delta := _current_cursor_position - _target_cursor_position
+	velocity = move_delta.length()
 	_current_cursor_position -= move_delta
 	_distance_travelled += velocity
 
@@ -67,7 +72,7 @@ func _update_brush_position(delta: float):
 		_current_plank = null
 
 	if _current_plank != null:
-		var distance_from_plank = 0.05 if _mouse.left else 0.18
+		var distance_from_plank = 0.12 if _mouse.left else 0.23
 		_target_brush_position = _mouse_position_3d - ray_direction * distance_from_plank
 	else:
 		_target_brush_position = ray_origin + ray_direction
@@ -101,8 +106,13 @@ func _apply_tilt(delta: float, move_delta: Vector2, velocity: float):
 	# TODO: The velocity is resolution dependent
 	var camera_basis = _camera.global_transform.basis
 	var tilt_amount_rad = deg_to_rad(min(tilt_amount, velocity * (10 if _mouse.left else 2)))
+
+	var rotation_towards_fence_deg := 160
+	if _current_plank != null:
+		rotation_towards_fence_deg = 90 if _mouse.left else 120
+
 	var target_basis = camera_basis \
 		.rotated(camera_basis.z, move_delta.normalized().x * tilt_amount_rad) \
 		.rotated(camera_basis.x, -move_delta.normalized().y * tilt_amount_rad) \
-		.rotated(camera_basis.x, deg_to_rad(90))
+		.rotated(camera_basis.x, deg_to_rad(rotation_towards_fence_deg))
 	_brush_model.basis = _brush_model.basis.slerp(target_basis, delta * max(10, velocity))

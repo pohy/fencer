@@ -37,7 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44563, 0.937843, 0.00158691
 shape = SubResource("BoxShape3D_tox7a")
 
 [node name="CameraPosition" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.56428, 1.2359, 1.43735)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47019, 1.2359, 1.43735)
 
 [node name="LeftFenceMonitor" type="Area3D" parent="."]
 collision_layer = 0

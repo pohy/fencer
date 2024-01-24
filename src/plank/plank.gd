@@ -4,10 +4,16 @@ extends StaticBody3D
 signal fill_updated(fill_delta: float)
 
 @export var fill_fetch_interval_s: float = 1.0
+@export var fence_segment: FenceSegment = null
 
 var fill_amount: float:
 	get:
 		return _current_fill
+var is_active: bool:
+	get:
+		if fence_segment == null:
+			return false
+		return fence_segment.is_active
 
 @onready var _sub_viewport: Viewport = $SubViewport
 @onready var _brush: Sprite2D = $SubViewport/BrushSprite
@@ -19,6 +25,8 @@ var _last_fill_fetch_at := -1.0
 
 func _ready():
 	_inactive_timer.timeout.connect(_update_fill_amount)
+
+	assert(fence_segment is FenceSegment, "Plank must have a FenceSegment assigned to it.")
 
 func _update_fill_amount():
 	_last_fill_fetch_at = Time.get_ticks_msec()

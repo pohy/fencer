@@ -27,3 +27,4 @@ window/size/viewport_height=1080
 [layer_names]
 
 3d_physics/layer_2="plank"
+3d_physics/layer_3="fence"

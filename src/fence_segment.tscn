@@ -1,0 +1,123 @@
+[gd_scene load_steps=10 format=3 uid="uid://dkfm206osc6g3"]
+
+[ext_resource type="Script" path="res://src/fence_segment.gd" id="1_ui4g2"]
+[ext_resource type="PackedScene" uid="uid://rtxx66oqi8qk" path="res://src/plank/plank.tscn" id="1_y8hug"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tox7a"]
+size = Vector3(3.21387, 1.87355, 0.404541)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6046k"]
+size = Vector3(0.5, 1.86133, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5dji"]
+albedo_color = Color(0.439216, 0.439216, 0.439216, 1)
+metallic_specular = 0.14
+
+[sub_resource type="BoxMesh" id="BoxMesh_vxhg6"]
+size = Vector3(3.2, 0.5, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8d1ia"]
+size = Vector3(0.3, 1.5, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2umb0"]
+albedo_color = Color(0.341176, 0.247059, 0.113725, 1)
+metallic_specular = 0.14
+
+[sub_resource type="BoxMesh" id="BoxMesh_ux7xu"]
+size = Vector3(3.2, 0.2, 0.05)
+
+[node name="FenceSegment" type="Area3D" groups=["fence"]]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_ui4g2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44563, 0.937843, 0.00158691)
+shape = SubResource("BoxShape3D_tox7a")
+
+[node name="CameraPosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.56428, 1.2359, 1.43735)
+
+[node name="LeftFenceMonitor" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftFenceMonitor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94817, 0)
+shape = SubResource("BoxShape3D_6046k")
+
+[node name="RightFenceMonitor" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightFenceMonitor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97109, 0.94817, 0)
+shape = SubResource("BoxShape3D_6046k")
+
+[node name="Planks" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53258, 1.19583, 0)
+
+[node name="Plank" parent="Planks" node_paths=PackedStringArray("fence_segment") instance=ExtResource("1_y8hug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.802215, 0, 2.08165e-12)
+fence_segment = NodePath("../..")
+
+[node name="Plank2" parent="Planks" node_paths=PackedStringArray("fence_segment") instance=ExtResource("1_y8hug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.434077, 0, 2.08165e-12)
+fence_segment = NodePath("../..")
+
+[node name="Plank3" parent="Planks" node_paths=PackedStringArray("fence_segment") instance=ExtResource("1_y8hug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0394307, 0, 2.08165e-12)
+fence_segment = NodePath("../..")
+
+[node name="Plank4" parent="Planks" node_paths=PackedStringArray("fence_segment") instance=ExtResource("1_y8hug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.350295, 0, 2.08165e-12)
+fence_segment = NodePath("../..")
+
+[node name="Plank5" parent="Planks" node_paths=PackedStringArray("fence_segment") instance=ExtResource("1_y8hug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.739085, 0, 2.08165e-12)
+fence_segment = NodePath("../..")
+
+[node name="Plank6" parent="Planks" node_paths=PackedStringArray("fence_segment") instance=ExtResource("1_y8hug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13952, 0, 2.08165e-12)
+fence_segment = NodePath("../..")
+
+[node name="Plank7" parent="Planks" node_paths=PackedStringArray("fence_segment") instance=ExtResource("1_y8hug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16321, 0, 2.08165e-12)
+fence_segment = NodePath("../..")
+
+[node name="FenceFrame" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54939, -0.0513527, 0)
+
+[node name="BottomConcrete" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.110653, 0.305824, 0)
+material_override = SubResource("StandardMaterial3D_j5dji")
+mesh = SubResource("BoxMesh_vxhg6")
+skeleton = NodePath("../../..")
+
+[node name="LeftPillar" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.54763, 1.17717, 0)
+material_override = SubResource("StandardMaterial3D_j5dji")
+mesh = SubResource("BoxMesh_8d1ia")
+skeleton = NodePath("../../..")
+
+[node name="RightPillar" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57864, 1.17717, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_j5dji")
+mesh = SubResource("BoxMesh_8d1ia")
+skeleton = NodePath("../../..")
+
+[node name="UpperHoldingPlank" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0702461, 1.6922, -0.0452992)
+material_override = SubResource("StandardMaterial3D_2umb0")
+mesh = SubResource("BoxMesh_ux7xu")
+skeleton = NodePath("../../..")
+
+[node name="LowerHoldingPlank" type="MeshInstance3D" parent="FenceFrame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0702461, 0.87666, -0.0452992)
+material_override = SubResource("StandardMaterial3D_2umb0")
+mesh = SubResource("BoxMesh_ux7xu")
+skeleton = NodePath("../../..")

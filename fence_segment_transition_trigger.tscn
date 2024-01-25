@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp5q3o3j07hdf"]
+
+[ext_resource type="Script" path="res://src/fence_segment_transition_trigger.gd" id="1_042hc"]
+[ext_resource type="Texture2D" uid="uid://bvep6din5fobr" path="res://assets/triangle.png" id="2_hp1bl"]
+
+[node name="FenceSegmentTransitionTrigger" type="Control"]
+custom_minimum_size = Vector2(200, 1920)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 1920.0
+size_flags_vertical = 3
+script = ExtResource("1_042hc")
+arrow_travel_distance = 320.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -256.0
+offset_bottom = 256.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(256, 256)
+mouse_filter = 2
+texture = ExtResource("2_hp1bl")
+expand_mode = 3
+
+[node name="TriggerTimer" type="Timer" parent="."]
+one_shot = true

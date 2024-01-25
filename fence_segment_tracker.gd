@@ -1,3 +1,4 @@
+class_name FenceSegmentTracker
 extends Node
 
 @export var initial_segment: FenceSegment
@@ -24,6 +25,17 @@ func _input(event):
 			_activate_segment(_active_segment.left_fence)
 		if event.keycode == Key.KEY_RIGHT and _active_segment.right_fence is FenceSegment:
 			_activate_segment(_active_segment.right_fence)
+
+func activate_neighbouring_segment(direction: FenceSegment.MonitorPosition):
+	match direction:
+		FenceSegment.MonitorPosition.LEFT:
+			if _active_segment.left_fence is FenceSegment:
+				_activate_segment(_active_segment.left_fence)
+		FenceSegment.MonitorPosition.RIGHT:
+			if _active_segment.right_fence is FenceSegment:
+				_activate_segment(_active_segment.right_fence)
+		_:
+			printerr("Invalid direction %s" % direction)
 
 func _activate_segment(segment: FenceSegment):
 	if _active_segment is FenceSegment:

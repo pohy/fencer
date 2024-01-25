@@ -109,7 +109,7 @@ func _apply_tilt(delta: float, move_delta: Vector2, velocity: float):
 
 	var rotation_towards_fence_deg := 160
 	if _current_plank != null:
-		rotation_towards_fence_deg = 90 if _mouse.left else 120
+		rotation_towards_fence_deg = 90 if _mouse.left else 100
 
 	var target_basis = camera_basis \
 		.rotated(camera_basis.z, move_delta.normalized().x * tilt_amount_rad) \

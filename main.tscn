@@ -1,13 +1,15 @@
-[gd_scene load_steps=19 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=21 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
 [ext_resource type="Script" path="res://src/paint_progress_tracker.gd" id="1_g2ks0"]
 [ext_resource type="Script" path="res://fence_segment_tracker.gd" id="2_cgqgp"]
 [ext_resource type="PackedScene" uid="uid://blitifbt0btl7" path="res://addons/mouse/mouse.tscn" id="2_dgr3k"]
 [ext_resource type="Script" path="res://src/brush_caster.gd" id="2_epem3"]
+[ext_resource type="PackedScene" uid="uid://cp5q3o3j07hdf" path="res://fence_segment_transition_trigger.tscn" id="4_u5pma"]
 [ext_resource type="PackedScene" uid="uid://bwryn58kush3o" path="res://src/brush_model.tscn" id="4_uayg8"]
 [ext_resource type="PackedScene" uid="uid://cq6gjuo1v3d0t" path="res://src/dialogue.tscn" id="6_ck7kd"]
 [ext_resource type="PackedScene" uid="uid://dkfm206osc6g3" path="res://src/fence_segment.tscn" id="7_q5a0f"]
+[ext_resource type="Script" path="res://src/stroke_player.gd" id="9_gwwqs"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_qag6c"]
 viewport_path = NodePath("BrushCaster/BrushModel/SubViewport")
@@ -117,6 +119,54 @@ script = ExtResource("1_g2ks0")
 script = ExtResource("2_cgqgp")
 initial_segment = NodePath("../Fence/FenceSegment")
 
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dialogue" parent="GUI" node_paths=PackedStringArray("paint_progress_tracker") instance=ExtResource("6_ck7kd")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+grow_vertical = 0
+mouse_default_cursor_shape = 1
+paint_progress_tracker = NodePath("../../PaintProgressTracker")
+
+[node name="FenceSegmentTransitionTriggerRight" parent="GUI" node_paths=PackedStringArray("fence_segment_tracker") instance=ExtResource("4_u5pma")]
+custom_minimum_size = Vector2(150, 1920)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 2
+fence_segment_tracker = NodePath("../../FenceSegmentTracker")
+direction = 1
+
+[node name="FenceSegmentTransitionTriggerLeft" parent="GUI" node_paths=PackedStringArray("fence_segment_tracker") instance=ExtResource("4_u5pma")]
+custom_minimum_size = Vector2(150, 1920)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+fence_segment_tracker = NodePath("../../FenceSegmentTracker")
+
+[node name="TextureRect" parent="GUI/FenceSegmentTransitionTriggerLeft" index="0"]
+anchors_preset = 4
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_right = 512.0
+grow_horizontal = 1
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, -4.09353e-16, 3.43488e-16, 3.7468e-16, 0.99543, 0.0954983, -3.81011e-16, -0.0954983, 0.99543, 2.08165e-12, 1.2359, 1.43735)
 script = ExtResource("1_6fm8c")
@@ -126,8 +176,8 @@ zoom_on_paint = 2.0
 
 [node name="Mouse" parent="Camera3D" instance=ExtResource("2_dgr3k")]
 
-[node name="Dialogue" parent="." node_paths=PackedStringArray("paint_progress_tracker") instance=ExtResource("6_ck7kd")]
-paint_progress_tracker = NodePath("../PaintProgressTracker")
+[node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
+current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.798846, -0.377636, 0.468227, 1.64197e-16, 0.778386, 0.627786, -0.601536, -0.501504, 0.62181, 0, 0, 0.853543)
@@ -171,9 +221,16 @@ value = 1.0
 fill_mode = 3
 show_percentage = false
 
+[node name="StrokePlayer" type="AudioStreamPlayer3D" parent="BrushCaster" node_paths=PackedStringArray("brush_caster")]
+bus = &"SFX"
+script = ExtResource("9_gwwqs")
+brush_caster = NodePath("..")
+
 [node name="Floor" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_hhrvs")
 mesh = SubResource("BoxMesh_qtkh7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ohas3")
+
+[editable path="GUI/FenceSegmentTransitionTriggerLeft"]

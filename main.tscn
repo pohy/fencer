@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=27 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
 [ext_resource type="Script" path="res://src/paint_progress_tracker.gd" id="1_g2ks0"]
@@ -10,6 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://cq6gjuo1v3d0t" path="res://src/dialogue.tscn" id="6_ck7kd"]
 [ext_resource type="PackedScene" uid="uid://dkfm206osc6g3" path="res://src/fence_segment.tscn" id="7_q5a0f"]
 [ext_resource type="Script" path="res://src/stroke_player.gd" id="9_gwwqs"]
+[ext_resource type="ArrayMesh" uid="uid://d206yjht8thaw" path="res://assets/suburb_assets_pt1/models/house-small-carport-left.obj" id="11_ttkc6"]
+[ext_resource type="ArrayMesh" uid="uid://dn6ftwbmffx0" path="res://assets/kenney_nature/naturePack_150.obj" id="12_x7xg1"]
+[ext_resource type="ArrayMesh" uid="uid://bn0ly1vnql70q" path="res://assets/kenney_nature/naturePack_140.obj" id="13_3vnsj"]
+[ext_resource type="ArrayMesh" uid="uid://be02najmdhobx" path="res://assets/kenney_nature/naturePack_163.obj" id="14_46his"]
+[ext_resource type="ArrayMesh" uid="uid://d4keu1ilwudfi" path="res://assets/kenney_nature/naturePack_052.obj" id="15_hwk7o"]
+[ext_resource type="ArrayMesh" uid="uid://dbcbpojgu60m3" path="res://assets/kenney_nature/naturePack_074.obj" id="16_0ef3s"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_qag6c"]
 viewport_path = NodePath("BrushCaster/BrushModel/SubViewport")
@@ -225,6 +231,47 @@ show_percentage = false
 bus = &"SFX"
 script = ExtResource("9_gwwqs")
 brush_caster = NodePath("..")
+
+[node name="House-small-carport-left" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.31251, 0, 0.402855, 0, 1.37295, 0, -0.402855, 0, 1.31251, 1.53257, -1.32553, -6.09095)
+mesh = ExtResource("11_ttkc6")
+
+[node name="Trees" type="Node3D" parent="."]
+
+[node name="NaturePack150" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.684051, 0, 0, 0, 0.684051, 0, 0, 0, 0.684051, -5.07927, 0, -10.3929)
+mesh = ExtResource("12_x7xg1")
+skeleton = NodePath("../..")
+
+[node name="NaturePack151" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.528741, 0, 0.194193, 0, 0.563275, 0, -0.194193, 0, 0.528741, -6.00525, 1.90735e-06, -9.75252)
+mesh = ExtResource("12_x7xg1")
+skeleton = NodePath("../..")
+
+[node name="NaturePack140" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.624364, 0, 0, 0, 0.624364, 0, 0, 0, 0.624364, -3.46159, -9.53674e-07, -10.3374)
+mesh = ExtResource("13_3vnsj")
+skeleton = NodePath("../..")
+
+[node name="NaturePack163" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.835356, 0, 0, 0, 0.835356, 0, 0, 0, 0.835356, -11.0859, 0, -3.02243)
+mesh = ExtResource("14_46his")
+skeleton = NodePath("../..")
+
+[node name="NaturePack164" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.526579, 0, 0.486594, 0, 0.71698, 0, -0.486594, 0, 0.526579, -6.35723, 0, -8.0972)
+mesh = ExtResource("14_46his")
+skeleton = NodePath("../..")
+
+[node name="NaturePack052" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(0.945873, 0, 0, 0, 0.945873, 0, 0, 0, 0.945873, -6.40473, 0, -4.70805)
+mesh = ExtResource("15_hwk7o")
+skeleton = NodePath("../..")
+
+[node name="NaturePack074" type="MeshInstance3D" parent="Trees"]
+transform = Transform3D(1.03357, 0, 0, 0, 1.03357, 0, 0, 0, 1.03357, -0.743953, 9.53674e-07, -0.330763)
+mesh = ExtResource("16_0ef3s")
+skeleton = NodePath("../..")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_hhrvs")

@@ -19,6 +19,8 @@ func _ready():
         _planks.append(plank)
         plank.fill_updated.connect(_on_fill_updated)
 
+    print_debug("Plank count: %s" % _planks.size())
+
 
 func _on_fill_updated(fill_delta: float):
     _fill_sum += fill_delta

@@ -5,6 +5,7 @@ extends Control
 @export var visibility_lookahead: float = 1.8
 
 @onready var _text_label: RichTextLabel = $BackgroundRect/MarginContainer/RichTextLabel
+@onready var _line_progress_bar: ProgressBar = $BackgroundRect/LineProgressBar
 
 var _dialogue_lines: PackedStringArray = []
 var _current_line_idx: int = -1
@@ -17,16 +18,20 @@ func _ready():
 	var text := file.get_as_text()
 	_dialogue_lines = text.split("\n")
 
+	_line_progress_bar.value = 0
+
 	assert(_dialogue_lines.size() > 0, "Dialogue file is empty.")
 	_text_label.text = ""
 	# _next_line()
 
 	print_debug("Dialogue line count: %s" % _dialogue_lines.size())
+	print_debug("Character count: %s" % text.length())
 
 	paint_progress_tracker.updated.connect(_on_paint_progress_updated)
 
 func _process(delta):
-	_text_label.visible_ratio = lerp(_text_label.visible_ratio, _target_visible_ratio, text_speed * delta)
+	_text_label.visible_ratio = lerp(_text_label.visible_ratio, _target_visible_ratio * visibility_lookahead, text_speed * delta)
+	_line_progress_bar.value = lerp(_line_progress_bar.value, _target_visible_ratio, text_speed * delta)
 
 func _next_line():
 	if _current_line_idx + 1 >= _dialogue_lines.size() - 1:
@@ -43,7 +48,7 @@ func _on_paint_progress_updated(paint_progress: float):
 
 	var current_line_progress := 1.0 - (next_line_at - paint_progress) * _dialogue_lines.size()
 	# print_debug("📏Current dialogue line progress: %s" % current_line_progress)
-	current_line_progress *= visibility_lookahead # Leave time for the whole line to be displayed
+	# current_line_progress *= visibility_lookahead # Leave time for the whole line to be displayed
 	# current_line_progress = clamp(current_line_progress, 0.0, 1.0)
 	# print_debug("📐Current dialogue line clamped: %s" % current_line_progress)
 	_target_visible_ratio = current_line_progress

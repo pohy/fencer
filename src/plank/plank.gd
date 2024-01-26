@@ -19,21 +19,19 @@ var is_active: bool:
 @onready var _brush: Sprite2D = $SubViewport/BrushSprite
 @onready var _mesh: MeshInstance3D = $MeshInstance3D
 @onready var _inactive_timer: Timer = $InactiveTimer
+@onready var _debug_label: Label3D = $DebugLabel
 
 var _current_fill: float = 0.0
 var _last_fill_fetch_at := -1.0
+var _signaled_filled := false
 
 func _ready():
 	_inactive_timer.timeout.connect(_update_fill_amount)
 
 	assert(fence_segment is FenceSegment, "Plank must have a FenceSegment assigned to it.")
 
-func _update_fill_amount():
-	_last_fill_fetch_at = Time.get_ticks_msec()
-	var fill = fetch_fill_amount()
-	var fill_delta = fill - _current_fill
-	_current_fill = fill
-	fill_updated.emit(fill_delta)
+func _process(delta):
+	_debug_label.text = str(ceil(_current_fill * 100)) + "%"
 
 # Returns normalized fill amount (in 0 -> 1 range)
 func fetch_fill_amount() -> float:
@@ -48,6 +46,26 @@ func fetch_fill_amount() -> float:
 		current_fill += pixel.a
 
 	return current_fill / full_fill
+
+func _update_fill_amount():
+	_last_fill_fetch_at = Time.get_ticks_msec()
+	var fill = fetch_fill_amount()
+	var fill_delta = fill - _current_fill
+	_current_fill = fill
+	fill_updated.emit(fill_delta)
+
+	if fill >= 0.99:
+		_signal_plank_filled()
+
+func _signal_plank_filled():
+	if _signaled_filled:
+		return
+
+	_signaled_filled = true
+
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector3.ONE * 1.2, 0.4).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(self, "scale", Vector3.ONE, 0.07).set_trans(Tween.TRANS_BOUNCE)
 
 # TODO: Accept modulation color
 func stroke_brush(cursor_position_3d: Vector3, opacity: float = 1.0, rotation: float = 0.0, scale: float = 1.0):

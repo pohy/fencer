@@ -211,7 +211,7 @@ depletion_rate = 0.001
 apply_interval_s = 0.01
 apply_velocity_multiplier = 2.0
 tilt_amount = 22.0
-coverage = 1.0
+coverage = 0.7
 
 [node name="Mouse" parent="BrushCaster" instance=ExtResource("2_dgr3k")]
 

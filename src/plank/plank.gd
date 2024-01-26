@@ -49,12 +49,13 @@ func fetch_fill_amount() -> float:
 
 func _update_fill_amount():
 	_last_fill_fetch_at = Time.get_ticks_msec()
-	var fill = fetch_fill_amount()
-	var fill_delta = fill - _current_fill
+	var fill := fetch_fill_amount()
+	fill = 1.0 if fill >= 0.99 else fill
+	var fill_delta := fill - _current_fill
 	_current_fill = fill
 	fill_updated.emit(fill_delta)
 
-	if fill >= 0.99:
+	if fill >= 1.0:
 		_signal_plank_filled()
 
 func _signal_plank_filled():

@@ -36,6 +36,7 @@ func _next_line():
 	_current_line_idx += 1
 
 	if _current_line_idx > 0:
+		_text_label.visible_ratio = 1.0
 		_text_label = _text_label.duplicate()
 		_text_container.add_child(_text_label)
 		_text_container.move_child(_text_label, 0)

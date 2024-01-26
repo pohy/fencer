@@ -76,49 +76,49 @@ adjustment_saturation = 1.12
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4461, 0.0523148, 2.08165e-12)
 
 [node name="FenceSegment2" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(0.938914, 0, 0.344151, 0, 1, 0, -0.344151, 0, 0.938914, 1.5527, 0.0524948, -0.0370161)
+transform = Transform3D(0.938914, 0, 0.344151, 0, 1, 0, -0.344151, 0, 0.938914, 1.60259, 0.0524948, -0.0553019)
 
 [node name="FenceSegment5" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(0.938914, 0, 0.344151, 0, 1, 0, -0.344151, 0, 0.938914, 4.42826, 0.0524948, -1.09102)
+transform = Transform3D(0.938914, 0, 0.344151, 0, 1, 0, -0.344151, 0, 0.938914, 4.45365, 0.0524948, -1.10033)
 
 [node name="FenceSegment7" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(0.441052, 0, 0.897481, 0, 1, 0, -0.897481, 0, 0.441052, 7.22833, 0.0524948, -2.11736)
+transform = Transform3D(0.0685556, 0, 0.997647, 0, 1, 0, -0.997647, 0, 0.0685556, 7.2573, 0.0524948, -2.23098)
 
 [node name="FenceSegment8" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(-0.280566, 0, 0.959835, 0, 1, 0, -0.959835, 0, -0.280566, 8.5135, 0.0524948, -4.7325)
+transform = Transform3D(0.624412, 0, 0.781096, 0, 1, 0, -0.781096, 0, 0.624412, 7.47408, 0.0524949, -5.36613)
 
 [node name="FenceSegment9" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(0.0858172, 0, 0.996311, 0, 1, 0, -0.996311, 0, 0.0858171, 7.69137, 0.0524948, -7.54506)
+transform = Transform3D(-0.465954, 0, 0.884809, 0, 1, 0, -0.884809, 0, -0.465954, 9.44551, 0.0524948, -7.77225)
 
 [node name="FenceSegment10" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(-0.89596, 0, 0.444135, 0, 1, 0, -0.444135, 0, -0.89596, 7.94409, 0.0524948, -10.4791)
+transform = Transform3D(-0.887502, 0, 0.460804, 0, 1, 0, -0.460804, 0, -0.887502, 7.98816, 0.0524948, -10.4562)
 
 [node name="FenceSegment11" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(-0.989152, 0, -0.146894, 0, 1, 0, 0.146894, 0, -0.989152, 5.27522, 0.0524948, -11.8021)
+transform = Transform3D(-0.968561, 0, -0.248774, 0, 1, 0, 0.248774, 0, -0.968561, 5.27522, 0.0524948, -11.8021)
 
 [node name="FenceSegment12" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(-0.997546, 0, -0.0700173, 0, 1, 0, 0.0700173, 0, -0.997546, 2.32636, 0.0524948, -11.3642)
+transform = Transform3D(-0.999435, 0, 0.0336091, 0, 1, 0, -0.0336091, 0, -0.999435, 2.31019, 0.0524948, -11.0071)
 
 [node name="FenceSegment13" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(-0.835184, 5.87439e-11, 0.549971, 4.904e-11, 1, -3.23407e-11, -0.549971, -3.9081e-14, -0.835184, -0.64272, 0.0524948, -11.1336)
+transform = Transform3D(-0.801953, 5.87439e-11, 0.597388, 4.7086e-11, 1, -3.51248e-11, -0.597388, -3.90809e-14, -0.801953, -0.706206, 0.0524948, -11.1754)
 
 [node name="FenceSegment14" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(-0.944261, 5.87439e-11, -0.329196, 5.54827e-11, 1, 1.93006e-11, 0.329196, -3.9081e-14, -0.944261, -3.11079, 0.0524948, -12.7589)
+transform = Transform3D(-0.925315, 5.87439e-11, -0.379197, 5.43717e-11, 1, 2.22386e-11, 0.379197, -3.90811e-14, -0.925315, -3.12915, 0.0524948, -13.0216)
 
 [node name="FenceSegment15" parent="Fence" instance=ExtResource("7_q5a0f")]
 transform = Transform3D(-0.579423, 5.87439e-11, -0.815026, 3.40701e-11, 1, 4.78547e-11, 0.815026, -3.9081e-14, -0.579424, -5.89003, 0.0524948, -11.7899)
 
 [node name="FenceSegment16" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(0.0884073, 5.87439e-11, -0.996084, -5.15368e-12, 1, 5.85174e-11, 0.996084, -3.9081e-14, 0.0884072, -7.60283, 0.0524948, -9.27656)
+transform = Transform3D(-0.0363823, 5.87439e-11, -0.999337, 2.17707e-12, 1, 5.87036e-11, 0.999337, -3.90812e-14, -0.0363824, -7.60283, 0.0524948, -9.27656)
 
 [node name="FenceSegment17" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(0.403034, 5.87439e-11, -0.915185, -2.36392e-11, 1, 5.37774e-11, 0.915185, -3.9081e-14, 0.403034, -7.29511, 0.0524948, -6.32557)
+transform = Transform3D(0.498351, 5.87439e-11, -0.866975, -2.92404e-11, 1, 5.09491e-11, 0.866975, -3.90809e-14, 0.498351, -7.66114, 0.0524948, -6.22078)
 
 [node name="FenceSegment3" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(0.488819, 0, -0.872385, 0, 1, 0, 0.872385, 0, 0.488819, -2.98752, 0.0524948, -2.72655)
+transform = Transform3D(0.956666, 0, -0.291186, 0, 1, 0, 0.291186, 0, 0.956666, -4.47218, 0.0524953, -0.85618)
 
 [node name="FenceSegment4" parent="Fence" instance=ExtResource("7_q5a0f")]
-transform = Transform3D(0.97248, 0, -0.232987, 0, 1, 0, 0.232987, 0, 0.97248, -6.0657, 0.0524948, -3.52558)
+transform = Transform3D(0.48789, 0, -0.872905, 0, 1, 0, 0.872905, 0, 0.48789, -6.0657, 0.0524948, -3.52558)
 
 [node name="PaintProgressTracker" type="Node" parent="."]
 script = ExtResource("1_g2ks0")

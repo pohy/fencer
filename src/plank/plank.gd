@@ -36,7 +36,7 @@ func _ready():
 
 func _process(delta):
 	_debug_label.text = str(ceil(_current_fill * 100)) + "%"
-	if _signaled_filled:
+	if _signaled_filled and _current_fill >= 1.0:
 		_material_overlay.emission_energy_multiplier = (sin(get_index() + Time.get_ticks_msec() * finished_breathe_speed) * 0.5 + 0.5) * 0.03
 
 # Returns normalized fill amount (in 0 -> 1 range)
@@ -68,11 +68,15 @@ func _signal_plank_filled():
 	if _signaled_filled:
 		return
 
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector3.ONE * 1.2, 0.5).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(_material_overlay, "emission_energy_multiplier", 1.3, 0.2).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(self, "scale", Vector3.ONE, 0.1).set_trans(Tween.TRANS_BOUNCE)
+	tween.parallel().tween_property(_material_overlay, "emission_energy_multiplier", 0.0, 0.05).set_trans(Tween.TRANS_BOUNCE)
+	
+	await tween.finished
 	_signaled_filled = true
 
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "scale", Vector3.ONE * 1.2, 0.4).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(self, "scale", Vector3.ONE, 0.07).set_trans(Tween.TRANS_BOUNCE)
 
 # TODO: Accept modulation color
 func stroke_brush(cursor_position_3d: Vector3, opacity: float = 1.0, rotation: float = 0.0, scale: float = 1.0):

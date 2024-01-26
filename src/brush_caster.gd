@@ -33,6 +33,7 @@ func _ready():
 
 func _process(delta):
 	_target_cursor_position = _mouse.position
+	# TODO: Normalize mouse position inside the delta
 	var move_delta := _current_cursor_position - _target_cursor_position
 	velocity = move_delta.length()
 	_current_cursor_position -= move_delta

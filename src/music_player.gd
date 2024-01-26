@@ -2,7 +2,7 @@ extends AudioStreamPlayer
 
 @export var paint_progress_tracker: PaintProgressTracker
 
-var _music_bus_idx: int
+var _music_bus_idx := 2
 var _high_pass_filter_effect_idx := 0
 var _low_pass_filter_effect_idx := 1
 
@@ -18,7 +18,8 @@ var _low_pass_target_cutoff_hz: float
 func _ready():
 	assert(paint_progress_tracker is PaintProgressTracker, "paint_progress_tracker not set")
 
-	_music_bus_idx = AudioServer.get_bus_index("music")
+	# _music_bus_idx = AudioServer.get_bus_index("music")
+	print_debug("music bus idx: " + str(_music_bus_idx))
 	_high_pass_filter = AudioServer.get_bus_effect(_music_bus_idx, _high_pass_filter_effect_idx)
 	_low_pass_filter = AudioServer.get_bus_effect(_music_bus_idx, _low_pass_filter_effect_idx)
 

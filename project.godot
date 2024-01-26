@@ -19,10 +19,15 @@ boot_splash/fullsize=false
 config/icon="res://icon.svg"
 boot_splash/minimum_display_time=4000
 
+[audio]
+
+driver/mix_rate.web=44100
+
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 
 [layer_names]
 

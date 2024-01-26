@@ -5,6 +5,7 @@ signal fill_updated(fill_delta: float)
 
 @export var fill_fetch_interval_s: float = 1.0
 @export var fence_segment: FenceSegment = null
+@export var finished_breathe_speed: float = 1.0
 
 var fill_amount: float:
 	get:
@@ -24,14 +25,19 @@ var is_active: bool:
 var _current_fill: float = 0.0
 var _last_fill_fetch_at := -1.0
 var _signaled_filled := false
+var _material_overlay: StandardMaterial3D
 
 func _ready():
 	_inactive_timer.timeout.connect(_update_fill_amount)
 
 	assert(fence_segment is FenceSegment, "Plank must have a FenceSegment assigned to it.")
+	assert(_mesh.material_overlay is StandardMaterial3D, "Material overlay has to be StandardMaterial3d.")
+	_material_overlay = _mesh.material_overlay
 
 func _process(delta):
 	_debug_label.text = str(ceil(_current_fill * 100)) + "%"
+	if _signaled_filled:
+		_material_overlay.emission_energy_multiplier = (sin(get_index() + Time.get_ticks_msec() * finished_breathe_speed) * 0.5 + 0.5) * 0.03
 
 # Returns normalized fill amount (in 0 -> 1 range)
 func fetch_fill_amount() -> float:

@@ -6,6 +6,7 @@ extends Node3D
 @export var apply_interval_s: float = 0.1
 @export var apply_velocity_multiplier: float = 1.0
 @export var tilt_amount: float = 10.0
+@export var coverage: float = 0.1
 
 var velocity: float = 0.0
 var is_painting: bool:
@@ -89,7 +90,7 @@ func _apply_brush_stroke(delta: float, move_delta: Vector2, velocity: float):
 		# TODO: Pass current paint color
 		var dir_rotation = rad_to_deg(atan2(move_delta.y, move_delta.x)) - 90
 
-		_current_plank.stroke_brush(_mouse_position_3d, _paint_fill * 0.1, dir_rotation)
+		_current_plank.stroke_brush(_mouse_position_3d, _paint_fill * coverage, dir_rotation)
 		_paint_fill = max(0.0, _paint_fill - paint_used)
 
 func _update_application_timers(delta: float, velocity: float):

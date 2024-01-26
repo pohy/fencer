@@ -1,0 +1,30 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://6uxapakn77ag"]
+
+[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_bekxp"]
+resource_name = "HighPassFilter"
+cutoff_hz = 1000.0
+db = 1
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_nf25x"]
+resource_name = "LowPassFilter"
+cutoff_hz = 1000.0
+db = 1
+
+[resource]
+bus/0/volume_db = -0.0305074
+bus/1/name = &"sfx"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/2/name = &"music"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = -3.01823
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectHighPassFilter_bekxp")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectLowPassFilter_nf25x")
+bus/2/effect/1/enabled = true

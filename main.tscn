@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cxvmv11a2iusl"]
+[gd_scene load_steps=29 format=3 uid="uid://cxvmv11a2iusl"]
 
 [ext_resource type="Script" path="res://src/camera.gd" id="1_6fm8c"]
 [ext_resource type="Script" path="res://src/paint_progress_tracker.gd" id="1_g2ks0"]
@@ -16,6 +16,8 @@
 [ext_resource type="ArrayMesh" uid="uid://be02najmdhobx" path="res://assets/kenney_nature/naturePack_163.obj" id="14_46his"]
 [ext_resource type="ArrayMesh" uid="uid://d4keu1ilwudfi" path="res://assets/kenney_nature/naturePack_052.obj" id="15_hwk7o"]
 [ext_resource type="ArrayMesh" uid="uid://dbcbpojgu60m3" path="res://assets/kenney_nature/naturePack_074.obj" id="16_0ef3s"]
+[ext_resource type="AudioStream" uid="uid://edhididmqoxn" path="res://assets/AsiTheme.wav" id="17_il62b"]
+[ext_resource type="Script" path="res://src/music_player.gd" id="18_0w4cp"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_qag6c"]
 viewport_path = NodePath("BrushCaster/BrushModel/SubViewport")
@@ -125,6 +127,13 @@ script = ExtResource("1_g2ks0")
 script = ExtResource("2_cgqgp")
 initial_segment = NodePath("../Fence/FenceSegment")
 
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("paint_progress_tracker")]
+stream = ExtResource("17_il62b")
+autoplay = true
+bus = &"music"
+script = ExtResource("18_0w4cp")
+paint_progress_tracker = NodePath("../PaintProgressTracker")
+
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -202,6 +211,7 @@ depletion_rate = 0.001
 apply_interval_s = 0.01
 apply_velocity_multiplier = 2.0
 tilt_amount = 22.0
+coverage = 1.0
 
 [node name="Mouse" parent="BrushCaster" instance=ExtResource("2_dgr3k")]
 
@@ -228,7 +238,6 @@ fill_mode = 3
 show_percentage = false
 
 [node name="StrokePlayer" type="AudioStreamPlayer3D" parent="BrushCaster" node_paths=PackedStringArray("brush_caster")]
-bus = &"SFX"
 script = ExtResource("9_gwwqs")
 brush_caster = NodePath("..")
 
